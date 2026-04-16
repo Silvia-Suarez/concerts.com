@@ -1,16 +1,22 @@
 import './App.css'
-import ConcertList from './components/concerts/ConcertList'
-import { concerts } from './data/concerts'
-function App() {
+import { Route, Routes } from 'react-router-dom'
+import HomePage from './pages/home'
+import NotFoundPage from './pages/notFoundPage'
+import NavBar from './components/global/NavBar'
 
+function App() {
   return (
     <>
-    <div>
-      <h1>
-        Concerts.com
-      </h1>
-      <ConcertList concerts={concerts}></ConcertList>
-    </div>
+      <div>
+        <NavBar></NavBar>
+        <Routes>
+          <Route
+            path="/"
+            element ={<HomePage></HomePage>}
+          />
+          <Route path='*' element={<NotFoundPage></NotFoundPage>}></Route>
+        </Routes>
+      </div>
     </>
   )
 }
