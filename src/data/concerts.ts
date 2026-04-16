@@ -18,7 +18,7 @@ export const concerts: Concert[] = [
     city: "Cali",
     price: 65000,
     artist: "Fruko y us tesos",
-    status: "AVAILABLE",
+    status: "SOLD_OUT",
     genre: "Salsa",
   },
   {
@@ -28,7 +28,7 @@ export const concerts: Concert[] = [
     city: "Bogotá",
     price: 120000,
     artist: "Guns and Roses",
-    status: "AVAILABLE",
+    status: "SOLD_OUT",
     genre: "Rock",
   },
   {
@@ -48,7 +48,7 @@ export const concerts: Concert[] = [
     city: "Barranquilla",
     price: 55000,
     artist: "First Sonata",
-    status: "AVAILABLE",
+    status: "SOLD_OUT",
     genre: "Acoustic",
   },
 ];
