@@ -29,14 +29,15 @@ export default function FilterBar({
     onResetFilters
 }: Props) {
     return (
-        <section>
-            <div>
+        <section className="flex justify-between my-3">
+            <div className="flex justify-between">
                 <label>
                     <span>
                         Search
                     </span>
                     <input
                         type="text"
+                        className="border rounded-input border-border px-3 py-2"
                         value={searchTerm}
                         placeholder="Title, city, artist..."
                         onChange={(e) => onChangeSearchTerm(e.target.value)}

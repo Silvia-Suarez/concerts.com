@@ -38,9 +38,9 @@ export default function HomePage() {
     }
   
     return (
-        <main>
+        <main className="mx-auto max-6xl p-6">
 
-            <h1>
+            <h1 className="font-bold m-0 text-xl text-muted">
                 Concerts.com
             </h1>
             <FilterBar
