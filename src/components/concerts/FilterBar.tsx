@@ -39,7 +39,7 @@ export default function FilterBar({
     "rounded-input border border-border bg-surface px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-brand-300";
 
   return (
-    <section className="mt-5 rounded-card border border-border bg-surface p-4 shadow-card">
+    <section className="mt-2 rounded-card border border-border bg-surface p-4 shadow-card">
       <div className="grid gap-3 lg:grid-cols-3">
         <label className="flex flex-col gap-2">
           <span className="text-xs text-muted">Search</span>
@@ -48,7 +48,7 @@ export default function FilterBar({
               className={inputBase}
               type="text"
               value={searchTerm}
-              placeholder="Title, venue, city..."
+              placeholder="Title, artist, city..."
               onChange={(e) => onChangeSearchTerm(e.target.value)}
             />
           </div>
@@ -61,7 +61,7 @@ export default function FilterBar({
             value={selectedGenre}
             onChange={(e) => onSelectedGenreChange(e.target.value)}
           >
-            <option value="ALL">All</option>
+            <option value="All">All</option>
             {genres.map((g) => (
               <option key={g} value={g}>
                 {g}
@@ -77,7 +77,7 @@ export default function FilterBar({
             value={selectedCity}
             onChange={(e) => onSelectedCityChange(e.target.value)}
           >
-            <option value="ALL">All</option>
+            <option value="All">All</option>
             {cities.map((c) => (
               <option key={c} value={c}>
                 {c}

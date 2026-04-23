@@ -35,6 +35,10 @@ export default function ConcertCard({ concert }: Props) {
           <span className="font-semibold">City: </span>
           <span className="text-muted">{concert.city}</span>
         </p>
+        <p className="m-0">
+          <span className="font-semibold">Artist: </span>
+          <span className="text-muted">{concert.artist}</span>
+        </p>
       </div>
       <div className="mt-4 flex intems-center justify-between">
         <p className="m-0 font-semibold text-text">{concert.price}</p>
