@@ -2,8 +2,20 @@ import { useMemo, useState } from "react";
 import ConcertList from "../components/concerts/ConcertList";
 import FilterBar from "../components/concerts/FilterBar";
 import { concerts } from "../data/concerts";
+import type { CartItem, Concert } from "../types";
+import CartPanel from "../components/cart/CartPanel";
 
-export default function HomePage() {
+type Props = {
+  cart: CartItem[];
+  onAddToCart: (concert: Concert) => void;
+  onQtyChange: (concertId: number, qty: number) => void;
+  onRemoveFromCart: (concertId: number) => void;
+  onClearCart: () => void;
+}
+export default function HomePage({ cart, onAddToCart, onClearCart, onQtyChange, onRemoveFromCart }: Props) {
+  // let searchTerm = "";
+  // const setSearchTerm = (palabra: string) => searchTerm = palabra;
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCity, setSelectedCity] = useState('All');
   const [selectedGenre, setSelectedGenre] = useState('All');
@@ -57,16 +69,21 @@ export default function HomePage() {
           Results: {filteredConcerts.length}
         </span>
       </div>
-
-      {filteredConcerts.length == 0 ?
-        <section>
-          <h2>No results found</h2>
-          <p>Try changing the filters or reset them :D</p>
-        </section>
-        :
-
-        <ConcertList concerts={filteredConcerts}></ConcertList>
-      }
+      <div className="flex w-full gap-4">
+        {filteredConcerts.length == 0 ?
+          <section>
+            <h2>No results found</h2>
+            <p>Try changing the filters or reset them :D</p>
+          </section>
+          :
+          <ConcertList
+            concerts={filteredConcerts}
+            // addToCart se necesita para el boton de add to cart en el concertCard
+            onAddToCart={onAddToCart}
+          ></ConcertList>
+        }
+        <CartPanel items={cart} onClearCart={onClearCart} onQtyChange={onQtyChange} onRemoveFromCart={onRemoveFromCart} ></CartPanel>
+      </div>
     </main>
   )
 }

@@ -4,9 +4,10 @@ import Button from "../ui/Button";
 
 type Props = {
   concert: Concert;
+  onAddToCart: (concert: Concert) => void;
 }
 
-export default function ConcertCard({ concert }: Props) {
+export default function ConcertCard({ concert, onAddToCart }: Props) {
   // 5=='5' true
   // 5==='5' false
   const isSold = concert.status === "SOLD_OUT";
@@ -40,9 +41,9 @@ export default function ConcertCard({ concert }: Props) {
           <span className="text-muted">{concert.artist}</span>
         </p>
       </div>
+      <p className="m-0 font-semibold text-text">{concert.price}</p>
       <div className="mt-4 flex intems-center justify-between">
-        <p className="m-0 font-semibold text-text">{concert.price}</p>
-        <Button disabled={isSold} variant="primary" onClick={() => console.log("Add to cart")}>
+        <Button disabled={isSold} variant="primary" fullWidth={true} onClick={() => onAddToCart(concert)}>
           Add To Cart
         </Button>
       </div>

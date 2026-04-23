@@ -3,13 +3,14 @@ import ConcertCard from "./ConcertCard";
 
 type Props = {
   concerts: Concert[];
+  onAddToCart: (concert: Concert) => void;
 }
 
-export default function ConcertList({ concerts }: Props) {
+export default function ConcertList({ concerts, onAddToCart }: Props) {
   return (
-    <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-2/3">
       {concerts.map((concert) =>
-        <ConcertCard key={`concert-card-${concert.id}`} concert={concert}></ConcertCard>)}
+        <ConcertCard key={`concert-card-${concert.id}`} concert={concert} onAddToCart={onAddToCart}></ConcertCard>)}
     </section>
   )
 }
