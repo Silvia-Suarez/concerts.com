@@ -38,12 +38,9 @@ export default function ConcertCard({ concert }: Props) {
       </div>
       <div className="mt-4 flex intems-center justify-between">
         <p className="m-0 font-semibold text-text">{concert.price}</p>
-        <Button disabled={isSold}>
+        <Button disabled={isSold} variant="primary" onClick={() => console.log("Add to cart")}>
           Add To Cart
         </Button>
-        {/* <button disabled={isSold}>
-          View details
-        </button> */}
       </div>
     </article>
   )
