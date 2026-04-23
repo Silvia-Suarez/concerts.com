@@ -39,10 +39,6 @@ export default function HomePage() {
 
   return (
     <main className="mx-auto max-w-6xl p-6">
-
-      <h1 className="font-bold m-0 text-xl text-muted">
-        Concerts.com
-      </h1>
       <FilterBar
         searchTerm={searchTerm}
         onChangeSearchTerm={setSearchTerm}
