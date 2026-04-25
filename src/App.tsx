@@ -51,19 +51,26 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<HomePage
-              cart={cart}
-              onAddToCart={addToCart}
-              onQtyChange={updateQty}
-              onRemoveFromCart={removeFromCart}
-              onClearCart={clearCart}
-            ></HomePage>}
-          />
-          <Route
-            path="/cart"
-            element={<CartPage></CartPage>}
+            element={
+              <HomePage
+                cart={cart}
+                onAddToCart={addToCart}
+                onQtyChange={updateQty}
+                onRemoveFromCart={removeFromCart}
+                onClearCart={clearCart}
+              ></HomePage>}
           />
           {/* Route cart path="/cart" */}
+          <Route
+            path="/cart"
+            element={
+              <CartPage
+                cart={cart}
+                onRemoveFromCart={removeFromCart}
+                onQtyChange={updateQty}
+                onClearCart={clearCart}
+              ></CartPage>}
+          />
           <Route path='*' element={<NotFoundPage></NotFoundPage>}></Route>
         </Routes>
       </div>

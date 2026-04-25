@@ -69,7 +69,7 @@ export default function HomePage({ cart, onAddToCart, onClearCart, onQtyChange, 
           Results: {filteredConcerts.length}
         </span>
       </div>
-      <div className="flex w-full gap-4">
+      <div className="flex lg:flex-row flex-col relative w-full gap-4">
         {filteredConcerts.length == 0 ?
           <section>
             <h2>No results found</h2>
@@ -82,7 +82,7 @@ export default function HomePage({ cart, onAddToCart, onClearCart, onQtyChange, 
             onAddToCart={onAddToCart}
           ></ConcertList>
         }
-        <CartPanel items={cart} onClearCart={onClearCart} onQtyChange={onQtyChange} onRemoveFromCart={onRemoveFromCart} ></CartPanel>
+        <CartPanel items={cart} width="w-1/3" onClearCart={onClearCart} onQtyChange={onQtyChange} onRemoveFromCart={onRemoveFromCart} ></CartPanel>
       </div>
     </main>
   )
