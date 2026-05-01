@@ -16,7 +16,7 @@ export default function StateMessage({ title, type, description, actionText, onA
         : "border-border bg-white text-muted";
 
   return (
-    <div className="rounded-card border border-dashed border-border bg-surface p-6 text-center shadow-card">
+    <div className={`rounded-card border border-dashed border-border bg-surface p-6 text-center shadow-card ${ring}`}>
       <h2 className="m-0 text-base font-semibold text-text">{title}</h2>
 
       {description && <p className="mt-2 text-sm text-muted">{description}</p>}
