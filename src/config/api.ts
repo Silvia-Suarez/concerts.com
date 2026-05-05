@@ -5,4 +5,9 @@ function getConfiguredBaseUrls() {
 
     return configured.split(",").map((value) => value.trim()).filter(Boolean);
 }
-export const API_BASE_URLS =getConfiguredBaseUrls();
+export const API_BASE_URLS = getConfiguredBaseUrls();
+
+export function apiUrlCandidates(path: string) {
+    const normalized = path.startsWith("/") ? path : `/${path}`;
+    return [normalized, ...API_BASE_URLS.map((base)=>`${base.replace(/\/$/,"")}${normalized}`)]
+}
