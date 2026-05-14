@@ -92,3 +92,8 @@ export async function getEventos() {
 
   throw new Error("No fue posible obtener los datos del backend. No sé que pasó");
 }
+
+export async function getConcertById(concertId: number) {
+  const allEvents = await getEventos();
+  return allEvents.find((e) => e.id === concertId);
+}

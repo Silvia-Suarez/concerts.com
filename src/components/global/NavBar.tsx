@@ -35,10 +35,10 @@ export default function NavBar() {
           ) : (
             <>
               <NavLink to={"/login"} className={({ isActive }) => (isActive ? `${linkBase} ${active}` : linkBase)}>
-                Ingresar
+                Log In
               </NavLink>
               <NavLink to={"/signup"} className={({ isActive }) => (isActive ? `${linkBase} ${active}` : linkBase)}>
-                Registro
+                Sign Up
               </NavLink>
             </>
           )}

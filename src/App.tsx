@@ -8,6 +8,7 @@ import type { CartItem, Concert } from './types'
 import { useState } from 'react'
 import LoginPage from './pages/loginPage'
 import SignupPage from './pages/signupPage'
+import ConcertDetailsPage from './pages/concertDetailsPage'
 
 function App() {
   // let cart2: CartItem[] = [];
@@ -75,6 +76,11 @@ function App() {
                 onClearCart={clearCart}
               ></CartPage>}
           />
+          <Route
+            path='/concerts/:concertId'
+            element={
+              <ConcertDetailsPage onAddToCart={addToCart}></ConcertDetailsPage>
+            }></Route>
           <Route path='*' element={<NotFoundPage></NotFoundPage>}></Route>
         </Routes>
       </div>

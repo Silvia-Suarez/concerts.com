@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { Concert } from "../../types";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
@@ -15,8 +16,10 @@ export default function ConcertCard({ concert, onAddToCart }: Props) {
     <article className="rounded-card border border-border bg-surface p-4 shadow-card">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h3 className="m-0 text-base font-semibold text-text ">
-            {concert.title}
+          <h3 className="m-0 text-base font-semibold text-brand-400 ">
+            <Link to={`/concerts/${concert.id}`}>
+              {concert.title}
+            </Link>
           </h3>
           <span className="block mt-1 text-xs text-muted"> {concert.genre}</span>
         </div>
@@ -42,6 +45,11 @@ export default function ConcertCard({ concert, onAddToCart }: Props) {
         </p>
       </div>
       <p className="m-0 font-semibold text-text">{concert.price}</p>
+      <div className="underline m-0 text-sm text-right ml-auto w-full font-semibold text-muted ">
+        <Link to={`/concerts/${concert.id}`}>
+          View Details
+        </Link>
+      </div>
       <div className="mt-4 flex intems-center justify-between">
         <Button disabled={isSold} variant="primary" fullWidth={true} onClick={() => onAddToCart(concert)}>
           Add To Cart
