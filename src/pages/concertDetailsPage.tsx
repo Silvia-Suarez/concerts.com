@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import type { Concert } from "../types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getConcertById } from "../services/eventsServics";
 import StateMessage from "../components/ui/StateMessage";
 import Badge from "../components/ui/Badge";
@@ -16,6 +16,8 @@ export default function ConcertDetailsPage({ onAddToCart }: Props) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [concert, setConcert] = useState<Concert | null>(null);
+    const [justAdded, setJustAdded] = useState(false);
+    const addedTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const concertIdNumber = concertId ? Number.parseInt(concertId) : Number.NaN
     async function loadConcert() {
@@ -51,6 +53,20 @@ export default function ConcertDetailsPage({ onAddToCart }: Props) {
         console.log("concert", concert)
     }, [concertIdNumber])
 
+    useEffect(() => {
+        setJustAdded(false);
+        if (addedTimeoutRef.current) {
+            window.clearTimeout(addedTimeoutRef.current);
+            addedTimeoutRef.current = null;
+        }
+    }, [concertIdNumber]);
+
+    useEffect(() => {
+        return () => {
+            if (addedTimeoutRef.current) window.clearTimeout(addedTimeoutRef.current);
+        };
+    }, []);
+
     if (loading) {
         return (
             <main className="mx-auto max-w-6xl p-6">
@@ -83,6 +99,16 @@ export default function ConcertDetailsPage({ onAddToCart }: Props) {
         )
     }
     const isSold = concert.status === "SOLD_OUT";
+
+    function onClickAddToCart(concert: Concert) {
+        onAddToCart(concert);
+        setJustAdded(true);
+        if (addedTimeoutRef.current) window.clearTimeout(addedTimeoutRef.current);
+        addedTimeoutRef.current = window.setTimeout(() => {
+            setJustAdded(false);
+            addedTimeoutRef.current = null;
+        }, 500);
+    }
 
     return (
         <main className="mx-auto max-w-3xl p-6">
@@ -122,8 +148,13 @@ export default function ConcertDetailsPage({ onAddToCart }: Props) {
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                     <div className="flex-1">
-                        <Button disabled={isSold} variant="primary" fullWidth onClick={() => onAddToCart(concert)}>
-                            Add to cart
+                        <Button
+                            disabled={isSold}
+                            variant={justAdded ? "success" : "primary"}
+                            fullWidth
+                            onClick={() => onClickAddToCart(concert)}
+                        >
+                            {justAdded ? "Added" : "Add to cart"}
                         </Button>
                     </div>
                     <Link to="/cart" className="inline-flex flex-1 items-center justify-center gap-2 rounded-btn border border-border bg-surface px-3 py-2 text-center text-sm font-medium text-text transition hover:bg-gray-50 focus:ring-2 focus:ring-brand-300">

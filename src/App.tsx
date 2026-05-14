@@ -47,10 +47,13 @@ function App() {
   function clearCart() {
     setCart([]);
   }
+
+  const cartTotalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+
   return (
     <>
       <div>
-        <NavBar />
+        <NavBar cartTotalQty={cartTotalQty} />
         <Routes>
           <Route
             path="/"

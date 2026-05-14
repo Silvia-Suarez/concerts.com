@@ -1,3 +1,4 @@
+import { formatPriceCOP } from "../../lib/formats";
 import type { CartItem } from "../../types";
 import Button from "../ui/Button";
 import StateMessage from "../ui/StateMessage";
@@ -54,7 +55,7 @@ export default function CartPanel({ items, width, onRemoveFromCart, onClearCart,
             </div>
             <div className="mt-2 flex items-center justify-between">
               <span className="text-muted">Total</span>
-              <span className="font-semibold">${totalPrice}</span>
+              <span className="font-semibold">{formatPriceCOP(totalPrice)}</span>
             </div>
           </div>
         </>

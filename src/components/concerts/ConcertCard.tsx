@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import type { Concert } from "../../types";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
+import { formatPriceCOP } from "../../lib/formats";
 
 type Props = {
   concert: Concert;
@@ -12,6 +14,18 @@ export default function ConcertCard({ concert, onAddToCart }: Props) {
   // 5=='5' true
   // 5==='5' false
   const isSold = concert.status === "SOLD_OUT";
+  const [justAdded, setJustAdded] = useState(false);
+
+  useEffect(() => {
+    if (!justAdded) return;
+    const t = window.setTimeout(() => setJustAdded(false), 500);
+    return () => window.clearTimeout(t);
+  }, [justAdded]);
+
+  function onClickAddToCart(concert: Concert) {
+    onAddToCart(concert);
+    setJustAdded(true);
+  }
   return (
     <article className="rounded-card border border-border bg-surface p-4 shadow-card">
       <div className="flex items-start justify-between gap-3">
@@ -28,7 +42,6 @@ export default function ConcertCard({ concert, onAddToCart }: Props) {
             {isSold ? "Sold out" : "Available"}
           </span>
         </Badge>
-        {/* <span>{isSold ? "Sold out" : "Available"}</span> */}
       </div>
       <div className="mt-3 space-y2 text-sm text-text">
         <p className="m-0">
@@ -44,15 +57,20 @@ export default function ConcertCard({ concert, onAddToCart }: Props) {
           <span className="text-muted">{concert.artist}</span>
         </p>
       </div>
-      <p className="m-0 font-semibold text-text">{concert.price}</p>
+      <p className="m-0 font-semibold text-text">{formatPriceCOP(concert.price)}</p>
       <div className="underline m-0 text-sm text-right ml-auto w-full font-semibold text-muted ">
         <Link to={`/concerts/${concert.id}`}>
           View Details
         </Link>
       </div>
       <div className="mt-4 flex intems-center justify-between">
-        <Button disabled={isSold} variant="primary" fullWidth={true} onClick={() => onAddToCart(concert)}>
-          Add To Cart
+        <Button
+          disabled={isSold}
+          variant={justAdded ? "success" : "primary"}
+          fullWidth={true}
+          onClick={() => onClickAddToCart(concert)}
+        >
+          {justAdded ? "Added" : "Add To Cart"}
         </Button>
       </div>
     </article>

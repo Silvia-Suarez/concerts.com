@@ -3,7 +3,11 @@ import { NavLink } from "react-router-dom";
 import Button from "../ui/Button";
 import { useAuth } from "../../context/AuthContext";
 
-export default function NavBar() {
+type Props = {
+  cartTotalQty?: number;
+};
+
+export default function NavBar({ cartTotalQty = 0 }: Props) {
   const { user, logout } = useAuth();
   const linkBase = "text-sm text-muted hover:text-text";
   const active = "text-brand-700 font-semibold text-text";
@@ -19,8 +23,21 @@ export default function NavBar() {
           <NavLink to={"/"} className={({ isActive }) => (isActive ? `${linkBase} ${active}` : linkBase)}>
             Home
           </NavLink>
-          <NavLink to={"/cart"} className={({ isActive }) => (isActive ? `${linkBase} ${active}` : linkBase)}>
-            <span className="inline-flex items-center gap-2">Cart</span>
+          <NavLink
+            to={"/cart"}
+            className={({ isActive }) =>
+              `${isActive ? `${linkBase} ${active}` : linkBase} relative inline-flex items-center pr-1`
+            }
+          >
+            Cart
+            {cartTotalQty > 0 ? (
+              <span
+                className="absolute -right-2.5 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-brand-600 px-0.5 text-[0.625rem] font-semibold leading-none text-white shadow-sm"
+                aria-label={`${cartTotalQty} items in cart`}
+              >
+                {cartTotalQty > 99 ? "99+" : cartTotalQty}
+              </span>
+            ) : null}
           </NavLink>
 
           {user ? (
